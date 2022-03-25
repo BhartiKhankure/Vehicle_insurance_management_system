@@ -18,17 +18,19 @@ public class Admin {
 	private String username;
 	@Column
 	private String password;
+	@Column
+	private String roles;
 	
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(long id, String password) {
+	public Admin(long id, String password,String roles) {
 		super();
 		this.id = id;
 		this.password = password;
-		
+		this.roles = roles;
 	}
 
 	public long getId() {
@@ -39,6 +41,14 @@ public class Admin {
 		this.id = id;
 	}
 
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+	
 	public String getPassword() {
 		return password;
 	}

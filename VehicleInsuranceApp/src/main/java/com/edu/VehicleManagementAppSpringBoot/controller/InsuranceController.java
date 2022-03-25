@@ -52,7 +52,7 @@ public class InsuranceController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<Insurance> getInsuranceById(@PathVariable("id") long id) {
-		return new ResponseEntity<Insurance>(insuranceService.geInsuranceById(id), HttpStatus.OK);
+		return new ResponseEntity<Insurance>(insuranceService.getInsuranceById(id), HttpStatus.OK);
 
 	}
 

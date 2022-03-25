@@ -31,7 +31,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 	}
 
 	@Override
-	public Insurance geInsuranceById(long id) {
+	public Insurance getInsuranceById(long id) {
 		Optional<Insurance> insurance = insuranceRepository.findById(id);
 		if (insurance.isPresent()) {
 			return insurance.get();

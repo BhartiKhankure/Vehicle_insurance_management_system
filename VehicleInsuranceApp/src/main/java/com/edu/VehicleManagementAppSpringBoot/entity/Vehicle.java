@@ -12,6 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,23 +26,36 @@ import lombok.Data;
 @Entity
 @Table(name = "vehicle_tbl")
 public class Vehicle {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "veh_id")
 	private long id;
+	
+
 	@Column
 	private String category;
+	
+	
 	@Column(name = "plate_number")
 	private String plateNumber;
+	
+	
 	@Column
 	private String manufacturer;
+	
+
 	@Column
 	private String type;
+	
+
 	@Column
 	private String color;
+	
+
 	@Column(name = "registration_date")
 	private Date registrationDate;
+	
+	
 	@Column(name = "pending_fines")
 	private double pendingFines;
 
@@ -46,19 +64,26 @@ public class Vehicle {
 	private Insurance insurance;
 
 	@ManyToOne
-	 @JsonManagedReference
-	// @JoinColumn(name = "user_id")
-	@JoinTable(name = "vehicle_user", joinColumns = { @JoinColumn(name = "veh_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "user_id") })
-	private User user;
+	@JsonManagedReference
+	 @JoinColumn(name = "customer_id")
+	//@JoinTable(name = "vehicle_user", joinColumns = { @JoinColumn(name = "veh_id") }, inverseJoinColumns = {
+	//		@JoinColumn(name = "customer_id") })
+	private Customer customer;
 
 	public Vehicle() {
 		super();
 		
 	}
 
-	public Vehicle(long id, String category, String plateNumber, String manufacturer, String type, String color,
-			Date registrationDate, double pendingFines) {
+	public Vehicle(long id,
+			@NotBlank(message = "Category can't be Empty") @NotNull(message = "Please enter the category ") String category,
+			@NotBlank(message = "Plate number can't be Empty") @NotNull(message = "Please enter plate number") String plateNumber,
+			@NotBlank(message = "Manufacturer can't be Empty") @NotNull(message = "Please enter manufacturer ") String manufacturer,
+			@NotBlank(message = "type can't be Empty") @NotNull(message = "Please enter the type ") String type,
+			@NotBlank(message = "Color can't be Empty") @NotNull(message = "Please enter the color ") String color,
+			@Past Date registrationDate,
+			@NotBlank(message = "Pending fines can't be Empty") @NotNull(message = "Please enter pending fines ") double pendingFines,
+			Insurance insurance, Customer customer) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -68,6 +93,8 @@ public class Vehicle {
 		this.color = color;
 		this.registrationDate = registrationDate;
 		this.pendingFines = pendingFines;
+		this.insurance = insurance;
+		this.customer = customer;
 	}
 
 	public long getId() {
@@ -134,11 +161,22 @@ public class Vehicle {
 		this.pendingFines = pendingFines;
 	}
 
-	@Override
-	public String toString() {
-		return "Vehicle [id=" + id + ", category=" + category + ", plateNumber=" + plateNumber + ", manufacturer="
-				+ manufacturer + ", type=" + type + ", color=" + color + ", registrationDate=" + registrationDate
-				+ ", pendingFines=" + pendingFines + "]";
+	public Insurance getInsurance() {
+		return insurance;
 	}
+
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	
 
 }
