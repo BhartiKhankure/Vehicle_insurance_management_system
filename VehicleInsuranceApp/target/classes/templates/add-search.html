@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert = "fragments::pageHeader">
+
+<meta charset="ISO-8859-1">
+
+<title>Add Search details</title>
+
+</head>
+<body>
+
+<div th:replace="fragments::menu"> </div>
+	<div class = "vh-100 container">
+		<div class = "row">
+			<div class = "col-md-8 offset-md-2">
+				<div class = "card">
+					<div class = "card-body" style = "background-color: aliceblue">
+						<h3 class = "text-center text-success mb-2 p-3">Add Search Details</h3>
+						
+						<form th:action="@{/saveSearch}" th:object="${search}" method="post" class="form needs-validation">
+	
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" th:field="*{username}" id="username" placeholder="Add Username">
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    </div>
+    <div class="form-group">
+        <label for="licenceNumber">Licence Number</label>
+        <input class="form-control" type="text" th:field="*{licenceNumber}" id="licenceNumber" placeholder="Add Licence Number">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('licenceNumber')}" th:errors="*{licenceNumber}"></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="plateNumber">Plate Number</label>
+        <input class="form-control" type="text" th:field="*{plateNumber}" id="plateNumber" placeholder="Add Plate Number">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('plateNumber')}" th:errors="*{plateNumber}"></div>
+    </div>
+    <div class="form-group">
+        <label for="insuranceNumber">Insurance Number</label>
+        <input class="form-control" type="text" th:field="*{insuranceNumber}" id="insuranceNumber" placeholder="Add Insurance Number">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('insuranceNumber')}" th:errors="*{insuranceNumber}"></div>
+    </div>
+    
+   
+    
+    <input type="submit" class="btn btn-primary mb-3" value="Add Search">
+    <a th:href="@{/getSearches}" class=" btn btn-primary btn-md mb-3 float-right"> Search List</a>
+</form>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+
+
+<div th:replace="fragments::pageFooter"></div>
+</body>
+
+</html>
