@@ -10,7 +10,7 @@ public interface InsuranceService {
 
 	List<Insurance> getAllInsurance();
 
-	Insurance geInsuranceById(long id);
+	Insurance getInsuranceById(long id);
 
 	Insurance updateInsurance(Insurance insurance, long id);
 
@@ -23,5 +23,7 @@ public interface InsuranceService {
 	List<Insurance> getInsuranceByInsuranceProvider(String insuranceProvider);
 
 	List<Insurance> getInsuranceByInsuranceNumber(String insuranceNumber);
+
+	
 
 }

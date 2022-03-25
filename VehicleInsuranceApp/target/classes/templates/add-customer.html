@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert = "fragments::pageHeader">
+
+<meta charset="ISO-8859-1">
+
+<title>Add Customers details</title>
+</head>
+<body>
+
+<div th:replace="fragments::menu"> </div>
+	<div class = "vh-100 container">
+		<div class = "row">
+			<div class = "col-md-8 offset-md-2">
+				<div class = "card">
+					<div class = "card-body" style = "background-color: aliceblue">
+						<h3 class = "text-center text-success mb-2 p-3">Add Customer Details</h3>
+						
+						<form th:action="@{/saveCustomer}" th:object="${customer}" method="post" class="form needs-validation">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="Add First Name">
+        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input class="form-control" type="text" th:field="*{lastName}" id="lastName" placeholder="Add Last Name">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" th:field="*{email}" id="email" placeholder="Add Email">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input class="form-control" type="text" th:field="*{contactNumber}" id="contactNumber" placeholder="Add Contact Number">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="gender">Gender</label>
+        <input class="form-control" type="text" th:field="*{gender}" id="gender" placeholder="Add Gender">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="dateOfBirth">Date Of Birth</label>
+        <input class="form-control" type="text" th:field="*{dateOfBirth}" id="dateOfBirth" placeholder="Add Date Of Birth">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="address">Address</label>
+        <input class="form-control" type="text" th:field="*{address}" id="address" placeholder="Add Address">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="nationality">Nationality</label>
+        <input class="form-control" type="text" th:field="*{nationality}" id="nationality" placeholder="Add Nationality">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></div>
+    </div>
+    
+     <div class="form-group">
+        <label for="licenceNumber">Licence Number</label>
+        <input class="form-control" type="text" th:field="*{licenceNumber}" id="licenceNumber" placeholder="Add Licence Number">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('licenceNumber')}" th:errors="*{licenceNumber}"></div>
+    </div>
+    
+   
+    
+    <input type="submit" class="btn btn-primary mb-3" value="Add Customer">
+    <a th:href="@{/getCustomers}" class=" btn btn-primary btn-md mb-3 float-right"> Customer List</a>
+</form>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+
+
+<div th:replace="fragments::pageFooter"></div>
+</body>
+
+</html>

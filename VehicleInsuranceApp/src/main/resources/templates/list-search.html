@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert = "fragments::pageHeader">
+<meta charset="ISO-8859-1">
+
+        <title>Search Details</title>
+
+</head>
+
+<body>
+<div th:replace="fragments::menu"> </div>
+
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <div th:switch="${searches}">
+                    <p class="my-5">
+                        <a href="/searchForm" class="btn btn-primary"><i class="fas fa-user-plus ml-2">  Add Search </i></a>
+                    </p>
+                    <div class="col-md-12">
+                     <div class="alert alert-warning" th:if="${successMessage}"></div>
+                        <h2 th:case="null">No Search yet!</h2>
+                        <div th:case="*">
+                        <h2 class = "text-center text-success"><u>List Of All Search Details</u></h2>
+                            <table class="table table-striped table-responsive-md table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    	
+                                        <th>User Name</th>
+                                        <th>Licence Number</th>
+                                        <th>Plate Number</th>
+ 										<th>Insurance Number</th>
+                                        <th colspan="2">Actions</th>
+                                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="search : ${searches}">  <!-- 1 -->
+                                    	 
+                                        <td th:text="${search.username}"></td>
+                                        <td th:text="${search.licenceNumber}"></td>
+                                        <td th:text="${search.plateNumber}"></td>
+                                        <td th:text="${search.insuranceNumber}"></td>
+                                        <td><a th:href="@{/searches/editSearch/{id}(id=${search.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
+                                        <td><a th:href="@{/searches/deleteSearch/{id}(id=${search.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div th:replace="fragments::pageFooter"></div>
+</body>
+
+</html>

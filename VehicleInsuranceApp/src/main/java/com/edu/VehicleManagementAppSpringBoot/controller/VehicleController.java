@@ -35,6 +35,8 @@ public class VehicleController {
 		return new ResponseEntity<Vehicle>(vehicleService.saveVehicle(vehicle), HttpStatus.CREATED);
 
 	}
+	
+	
 
 	@PostMapping("/bulkVehicle")
 	public String addVehicle(@RequestBody List<Vehicle> vehicle) {
@@ -45,6 +47,14 @@ public class VehicleController {
 			return REQUEST_NO_BODY;
 		}
 	}
+	
+	//display list of Vehicles
+
+//	@GetMapping("/")
+//	public String viewVehicleDetails(Model model) {
+//		model.addAttribute("VehicleDetails", vehicleService.getAllVehicle());
+//		return "vehicleRecord";
+//	}
 
 	@GetMapping
 	public List<Vehicle> getAllVehicle() {

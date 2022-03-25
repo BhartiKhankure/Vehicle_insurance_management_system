@@ -117,9 +117,6 @@ public class VehicleServiceImpl implements VehicleService {
 		if (vehicle.getInsurance() != null) {
 			newVehicle.setInsurance(vehicle.getInsurance());
 		}
-		if (vehicle.getUser() != null) {
-			newVehicle.setUser(vehicle.getUser());
-		}
 		vehicleRepository.save(newVehicle);
 		return newVehicle;
 	}

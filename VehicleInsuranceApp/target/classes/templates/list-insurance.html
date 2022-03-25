@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert = "fragments::pageHeader">
+<meta charset="ISO-8859-1">
+ <title>Insurance Details</title>
+
+</head>
+
+<body>
+
+<div th:replace="fragments::menu"> </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <div th:switch="${insurances}">
+                    <p class="my-5">
+                        <a href="/insuranceForm" class="btn btn-primary"><i class="fas fa-user-plus ml-2">  Add Insurance </i></a>
+                    </p>
+                    <div class="col-md-12">
+                     <div class="alert alert-warning" th:if="${successMessage}"></div>
+                        <h2 th:case="null">No Insurance yet!</h2>
+                        <div th:case="*">
+                        <h2 class = "text-center text-success"><u>List Of All Insurances</u></h2>
+                            <table class="table table-striped table-responsive-md table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Insurance Provider</th>
+                                        <th>Insurance Number</th>
+                                        <th>Insurance Validity</th>
+
+                                        <th colspan="2">Actions</th>
+                                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="insurance : ${insurances}">  <!-- 1 -->
+                                        <td th:text="${insurance.insuranceProvider}"></td>
+                                        <td th:text="${insurance.insuranceNumber}"></td>
+                                        <td th:text="${insurance.insuranceValidity}"></td>
+                                       
+                                        <td><a th:href="@{/insurances/editInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
+                                        <td><a th:href="@{/insurances/deleteInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div th:replace="fragments::pageFooter"></div>
+</body>
+
+</html>
