@@ -3,6 +3,7 @@ package com.edu.VehicleManagementAppSpringBoot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -34,24 +35,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	http.csrf().disable()
 
 		.authorizeRequests()
-		.antMatchers("/customer/*").hasAuthority("ROLE_USER")
+		.antMatchers("/user/*").hasAuthority("ROLE_USER")
 		.antMatchers("/admin/*").hasAuthority("ROLE_ADMIN")
-		.antMatchers("/").permitAll()// index.html
-		.antMatchers("/**").authenticated()
+		
+		.antMatchers("/","/registration").permitAll()// index.html
+		//.antMatchers("/**").authenticated()
 
 		.and().httpBasic()
 		
 		.and().formLogin()
+		.defaultSuccessUrl("/user/customerAccount", true)
+		 .permitAll()
+		.and().logout()
+		.logoutSuccessUrl("/")
+		.permitAll()
 		
-		.permitAll()
-		.and()
-		.logout()
-		.permitAll()
 		;
 
 	}
 	
   	
+  
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();

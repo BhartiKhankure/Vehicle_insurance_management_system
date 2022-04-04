@@ -10,73 +10,89 @@
 <body>
 
 <div th:replace="fragments::menu"> </div>
-	<div class = "vh-100 container">
-		<div class = "row">
-			<div class = "col-md-8 offset-md-2">
-				<div class = "card">
-					<div class = "card-body" style = "background-color: aliceblue">
-						<h3 class = "text-center text-success mb-2 p-3">Add Vehicle Details</h3>
+
+<div class = "vh-100 container">
+	<div class = "row">
+		<div class = "col-md-8 offset-md-2">
+			<div class = "card">
+				<div class = "card-body" style = "background-color: aliceblue">
+					<h3 class = "text-center text-success mb-2 p-3">Add Vehicle Details</h3>
+					<form th:action="@{/saveVehicle}" th:object = "${vehicle}" method = "post" class = "form-needs-validation">
+						<div class = "form-group">
+							<label for = "category">Category</label>
+							<input class = "form-control" type = "text" th:field = "*{category}" id = "category" placeholder = "Add Category">
+							<div th:if = "${#fields.hasErrors('category')}" th:errors = "*{category}"></div>
+						</div>
 						
-						<form th:action="@{/saveVehicle}" th:object="${vehicle}" method="post" class="form needs-validation">
-    <div class="form-group">
-        <label for="category">Category</label>
-        <input class="form-control" type="text" th:field="*{category}" id="category" placeholder="Add Category">
-        <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
-    </div>
-    <div class="form-group">
-        <label for="plateNumber">Plate Number</label>
-        <input class="form-control" type="text" th:field="*{plateNumber}" id="plateNumber" placeholder="Add Plate Number">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('plateNumber')}" th:errors="*{plateNumber}"></div>
-    </div>
-    
-    <div class="form-group">
-        <label for="manufacturer">Manufacturer</label>
-        <input class="form-control" type="text" th:field="*{manufacturer}" id="manufacturer" placeholder="Add Manufacturer">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></div>
-    </div>
-    
-    <div class="form-group">
-        <label for="type">Type</label>
-        <input class="form-control" type="tel" th:field="*{type}" id="type" placeholder="Add Type">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
-    </div>
-    <div class="form-group">
-        <label for="color">Color</label>
-        <input class="form-control" type="text" th:field="*{color}" id="color" placeholder="Add Color">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></div>
-    </div>
-    <div class="form-group">
-        <label for="registrationDate">Registration date</label>
-        <input class="form-control" type="tel" th:field="*{registrationDate}" id="registrationDate" placeholder="Add Registration Date">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('registrationDate')}" th:errors="*{registrationDate}"></div>
-    </div>
-    <div class="form-group">
-        <label for="pendingFines">Pending Fines</label>
-        <input class="form-control" type="tel" th:field="*{pendingFines}" id="pendingFines" placeholder="Add Pending Fines">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('pendingFines')}" th:errors="*{pendingFines}"></div>
-    </div>
-    <div class="form-group">
-        <label for="insurance">Insurance No.</label>
-        <input class="form-control" type="tel" th:field="*{insurance}" id="insurance" placeholder="Add Insurance No.">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}"></div>
-    </div>
-    <div class="form-group">
-        <label for="customer">Customer Id</label>
-        <input class="form-control" type="tel" th:field="*{customer}" id="customer" placeholder="Add Customer Id">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
-    </div>
-    
-    
-    
-    <input type="submit" class="btn btn-primary mb-3" value="Add Vehicle">
-    <a th:href="@{/getVehicles}" class=" btn btn-primary btn-md mb-3 float-right"> Vehicle List</a>
-</form>
+						<div class = "form-group">
+							<label for = "plateNumber">Plate Number</label>
+							<input class = "form-control" type = "text" th:field = "*{plateNumber}" id = "plateNumber" placeholder = "Add Plate NUmber">
+							<div th:if = "${#fields.hasErrors('plateNumber')}" th:errors = "*{plateNumber}"></div>
+						</div>
 						
-					</div>
+						<div class = "form-group">
+							<label for = "manufacturer">Manufacturer</label>
+							<input class = "form-control" type = "text" th:field = "*{manufacturer}" id = "manufacturer" placeholder = "Add Manufacturer">
+							<div th:if = "${#fields.hasErrors('manufacturer')}" th:errors = "*{manufacturer}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "type">Type</label>
+							<input class = "form-control" type = "text" th:field = "*{type}" id = "type" placeholder = "Add Type">
+							<div th:if = "${#fields.hasErrors('type')}" th:errors = "*{type}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "registrationDate">Registration Date</label>
+							<input class = "form-control" type = "text" th:field = "*{registrationDate}" id = "registrationDate" placeholder = "Add Registration Date">
+							<div th:if = "${#fields.hasErrors('registrationDate')}" th:errors = "*{registrationDate}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "premiumAmount">Premium Amount</label>
+							<input class = "form-control" type = "text" th:field = "*{premiumAmount}" id = "premiumAmount" placeholder = "Add Premium Amount">
+							<div th:if = "${#fields.hasErrors('premiumAmount')}" th:errors = "*{premiumAmount}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "nextPreDate">Next Premium Date</label>
+							<input class = "form-control" type = "text" th:field = "*{nextPreDate}" id = "nextPreDate" placeholder = "Add Next Premium Date">
+							<div th:if = "${#fields.hasErrors('nextPreDate')}" th:errors = "*{nextPreDate}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "previousPreDate">Previous Premium Date</label>
+							<input class = "form-control" type = "text" th:field = "*{previousPreDate}" id = "previousPreDate" placeholder = "Add Previous Premium Date">
+							<div th:if = "${#fields.hasErrors('previousPreDate')}" th:errors = "*{previousPreDate}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "pendingFines">Pending Fines</label>
+							<input class = "form-control" type = "text" th:field = "*{pendingFines}" id = "pendingFines" placeholder = "Add Pending Fines">
+							<div th:if = "${#fields.hasErrors('pendingFines')}" th:errors = "*{pendingFines}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "insurance">Insurance Id</label>
+							<input class = "form-control" type = "text" th:field = "*{insurance}" id = "insurance" placeholder = "Add Insurance Id">
+							<div th:if = "${#fields.hasErrors('insurance')}" th:errors = "*{insurance}"></div>
+						</div>
+						
+						<div class = "form-group">
+							<label for = "user">User Id</label>
+							<input class = "form-control" type = "text" th:field = "*{user}" id = "user" placeholder = "Add User Id">
+							<div th:if = "${#fields.hasErrors('user')}" th:errors = "*{user}"></div>
+						</div>
+						
+						<input type = "submit" class = "btn btn-primary mb-3" value = "Add Vehicle">
+						<a th:href = "@{/getVehicles}" class = "btn btn-primary btn-md mb-3 float-right">Vehicle List</a>
+					</form>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 <div th:replace="fragments::pageFooter"></div>
 </body>

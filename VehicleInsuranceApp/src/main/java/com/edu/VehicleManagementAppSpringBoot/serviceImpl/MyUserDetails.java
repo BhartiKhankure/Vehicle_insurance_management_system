@@ -13,13 +13,17 @@ import com.edu.VehicleManagementAppSpringBoot.entity.User;
 
 public class MyUserDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;
 	private boolean active;
 	private List<GrantedAuthority> authorities;
 
 	public MyUserDetails(User user) {
-		this.userName = user.getUserName();
+		this.userName = user.getEmail();
 		this.password = user.getPassword();
 		this.active = user.isActive();
 		this.authorities=Arrays.stream(user.getRoles().split(","))

@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-body">
                 <div th:switch="${insurances}">
-                    <p class="my-5">
+                    <p style="padding:14px">
                         <a href="/insuranceForm" class="btn btn-primary"><i class="fas fa-user-plus ml-2">  Add Insurance </i></a>
                     </p>
                     <div class="col-md-12">
@@ -27,15 +27,15 @@
                                         <th>Insurance Provider</th>
                                         <th>Insurance Number</th>
                                         <th>Insurance Validity</th>
-
                                         <th colspan="2">Actions</th>
-                                                    </tr>
+                                   </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="insurance : ${insurances}">  <!-- 1 -->
                                         <td th:text="${insurance.insuranceProvider}"></td>
                                         <td th:text="${insurance.insuranceNumber}"></td>
                                         <td th:text="${insurance.insuranceValidity}"></td>
+                                        
                                        
                                         <td><a th:href="@{/insurances/editInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
                                         <td><a th:href="@{/insurances/deleteInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2">Delete</i></a></td> 

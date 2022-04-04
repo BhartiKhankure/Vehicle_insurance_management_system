@@ -16,27 +16,31 @@
 					<div class = "card-body" style = "background-color: aliceblue">
 						<h3 class = "text-center text-success mb-2 p-3">Add Insurance Details</h3>
 						
-						<form th:action="@{/saveInsurance}" th:object="${insurance}" method="post" class="form needs-validation">
+						<form th:action="@{/saveInsurance}" th:object="${insurance}" method="post">
+						<div class="form-group">
+							<input type="hidden" th:field="*{id}">
+						</div>
     <div class="form-group">
         <label for="insuranceProvider">Insurance Provider</label>
-        <input class="form-control" type="text" th:field="*{insuranceProvider}" id="insuranceProvider" placeholder="Add Insurance Provider">
+        <input class="form-control" type="text" th:field="*{insuranceProvider}" id="insuranceProvider">
         <div th:if="${#fields.hasErrors('insuranceProvider')}" th:errors="*{insuranceProvider}"></div>
+       
     </div>
     <div class="form-group">
         <label for="insuranceNumber">Insurance Number</label>
-        <input class="form-control" type="text" th:field="*{insuranceNumber}" id="insuranceNumber" placeholder="Add Insurance Number">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('insuranceNumber')}" th:errors="*{insuranceNumber}"></div>
+        <input class="form-control" type="text" th:field="*{insuranceNumber}" id="insuranceNumber">
+        <div th:if="${#fields.hasErrors('insuranceNumber')}" th:errors="*{insuranceNumber}"></div>
+        
     </div>
     
     <div class="form-group">
         <label for="insuranceValidity">Insurance Validity</label>
-        <input class="form-control" type="text" th:field="*{insuranceValidity}" id="insuranceValidity" placeholder="Add Insurance Validity">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('insuranceValidity')}" th:errors="*{insuranceValidity}"></div>
+        <input class="form-control" type="text" th:field="*{insuranceValidity}" id="insuranceValidity">
+        <div th:if="${#fields.hasErrors('insuranceValidity')}" th:errors="*{insuranceValidity}"></div>
+        
     </div>
-    
-   
-    
-    <input type="submit" class="btn btn-primary mb-3" value="Add Insurance">
+ 
+    <input type="submit" class="btn btn-primary mb-3" value="Update Insurance">
     <a th:href="@{/getInsurances}" class=" btn btn-primary btn-md mb-3 float-right"> Insurance List</a>
 </form>
 					</div>

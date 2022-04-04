@@ -33,8 +33,7 @@
         <input class="form-control" type="text" th:field="*{insuranceValidity}" id="insuranceValidity" placeholder="Add Insurance Validity">
         <div class="alert alert-warning" th:if="${#fields.hasErrors('insuranceValidity')}" th:errors="*{insuranceValidity}"></div>
     </div>
-    
-   
+ 
     
     <input type="submit" class="btn btn-primary mb-3" value="Add Insurance">
     <a th:href="@{/getInsurances}" class=" btn btn-primary btn-md mb-3 float-right"> Insurance List</a>

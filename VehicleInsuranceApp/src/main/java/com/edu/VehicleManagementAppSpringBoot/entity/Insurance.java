@@ -1,5 +1,6 @@
 package com.edu.VehicleManagementAppSpringBoot.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,11 +21,11 @@ public class Insurance {
 	private long id;
 	@Column(name = "insurance_provider")
 	private String insuranceProvider;
-	@Column(name = "insurance_number")
+	@Column(name = "insurance_number", unique = true)
 	private String insuranceNumber;
 	@Column(name = "insurance_validity")
 	private String insuranceValidity;
-
+	
 	public Insurance() {
 		super();
 		// TODO Auto-generated constructor stub
