@@ -47,7 +47,7 @@
 <div th:fragment="menu">
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-			<a class="navbar-brand text-light text-uppercase" href="#">Vehicle
+			<a class="navbar-brand text-light text-uppercase" th:href="@{/}">Vehicle
 				Insurance management system</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
@@ -71,11 +71,11 @@
 				<form class="form-inline my-2 my-lg-0">
 
 					<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
-						<a class="text-warning" href="#">Sign In</a>
+						<a class="text-warning" th:href="@{/login}">Sign In</a>
 					</button>
 
 					<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
-						<a class="text-warning" href="#">Sign Up</a>
+						<a class="text-warning" th:href="@{/registration}">Sign Up</a>
 					</button>
 
 				</form>

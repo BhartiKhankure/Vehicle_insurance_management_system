@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:insert="fragments::pageHeader">
+		<meta charset="ISO-8859-1">
+		<title>Add Updated Details</title>
+	</head>
+	<body>
+		<div th:replace="fragments::menu"> </div>
+		<div class="vh-100 container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="card">
+						<div class="card-body" style="background-color:aliceblue">
+							<h3 class="text-center text-success mb-2 p-3">Add Vehicle details</h3>
+							<form th:action="@{/saveVehicle}" th:object="${vehicle}" method="post">
+								<div class="form-group">
+									<input type="hidden" th:field="*{id}">
+								</div>
+								<div class="form-group">
+									<label for="category">Category</label>
+									<input type="text" class="form-control" th:field="*{category}" id="category">
+									<div th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+								</div>
+								<div class="form-group">
+									<label for="plateNumber">Plate Number</label>
+									<input type="text" class="form-control" th:field="*{plateNumber}" id="plateNumber">
+									<div th:if="${#fields.hasErrors('plateNumber')}" th:errors="*{plateNumber}"></div>
+								</div>
+								<div class="form-group">
+									<label for="manufacturer">Manufacturer</label>
+									<input type="text" class="form-control" th:field="*{manufacturer}" id="manufacturer">
+									<div th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></div>
+								</div>
+								<div class="form-group">
+									<label for="type">Type</label>
+									<input type="text" class="form-control" th:field="*{type}" id="type">
+									<div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div> 
+								</div>
+								<div class="form-group">
+									<label for="registrationdate">Registration Date</label>
+									<input type="text" class="form-control" th:field="*{registrationDate}" id="registrationdate">
+									<div th:if="${#fields.hasErrors('registrationDate')}" th:errors="*{registrationDate}"></div>
+								</div>
+								<div class="form-group">
+									<label for="premiumAmount">Premium Amount</label>
+									<input type="text" class="form-control" th:field="*{premiumAmount}" id="premiumAmount">
+									<div th:if="${#fields.hasErrors('premiumAmount')}" th:errors="*{premiumAmount}"></div>
+								</div>
+								<div class="form-group">
+									<label for="nextPreDate">Next Premium date</label>
+									<input type="text" class="form-control" th:field="*{nextPreDate}" id="nextPreDate">
+									<div th:if="${#fields.hasErrors('nextPreDate')}" th:errors="*{nextPreDate}"></div>
+								</div>
+								<div class="form-group">
+									<label for="previousPreDate">Previous Premium Date</label>
+									<input type="text" class="form-control" th:field="*{previousPreDate}" id="previousPreDate">
+									<div th:if="${#fields.hasErrors('previousPreDate')}" th:errors="*{previousPreDate}"></div>
+								</div>
+								<div class="form-group">
+									<label for="pendingFines">Pending Fines</label>
+									<input type="text" class="form-control" th:field="*{pendingFines}" id="pendingFines">
+									<div th:if="${#fields.hasErrors('pendingFines')}" th:errors="*{pendingFines}"></div>
+								</div>
+								<div class="form-group">
+									<label for="insurance">Insurance Id</label>
+									<input type="text" class="form-control" th:field="*{insurance}" id="insurance">
+									<div th:if="${#fields.hasErrors('insurance')}" th:errors="*{insurance}"></div> 
+								</div>
+								<div class="form-group">
+									<label for="user">User Id</label>
+									<input type="text" class="form-control" th:field="*{user}" id="user">
+									<div th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></div> 
+								</div>
+								
+								<input type = "submit" class = "btn btn-primary mb-3" value = "update Vehicle">
+						<a th:href = "@{/getVehicles}" class = "btn btn-primary btn-md mb-3 float-right">Vehicle List</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div th:replace="fragments::pageFooter"></div>
+	</body>
+</html>

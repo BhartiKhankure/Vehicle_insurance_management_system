@@ -1,7 +1,6 @@
 package com.edu.VehicleManagementAppSpringBoot;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -10,37 +9,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-import com.edu.VehicleManagementAppSpringBoot.entity.Customer;
 import com.edu.VehicleManagementAppSpringBoot.entity.Insurance;
-import com.edu.VehicleManagementAppSpringBoot.entity.Search;
+import com.edu.VehicleManagementAppSpringBoot.entity.User;
 import com.edu.VehicleManagementAppSpringBoot.entity.Vehicle;
 import com.edu.VehicleManagementAppSpringBoot.service.AdminService;
-import com.edu.VehicleManagementAppSpringBoot.service.CustomerService;
 import com.edu.VehicleManagementAppSpringBoot.service.InsuranceService;
-import com.edu.VehicleManagementAppSpringBoot.service.SearchService;
+import com.edu.VehicleManagementAppSpringBoot.service.UserService;
 import com.edu.VehicleManagementAppSpringBoot.service.VehicleService;
 
 
 @Controller
 public class UIController {
-	private CustomerService customerService;
+	private UserService userService;
 	private VehicleService vehicleService;
 	private InsuranceService insuranceService;
-	private SearchService searchService;
 	private AdminService adminService;
 	
 	
 	@Autowired
-	public UIController(CustomerService customerService, VehicleService vehicleService, InsuranceService insuranceService, SearchService searchService, AdminService adminService) {
+	public UIController(UserService userService, VehicleService vehicleService, InsuranceService insuranceService, AdminService adminService) {
 		super();
-		this.customerService = customerService;
+		this.userService = userService;
 		this.vehicleService = vehicleService;
 		this.insuranceService = insuranceService;
-		this.searchService = searchService;
 		this.adminService = adminService;
 		
 	}
@@ -55,32 +50,34 @@ public class UIController {
 		return "login";
 	}
 	
-	//For Customer
+	//For user
 	@GetMapping("/registration")
-	public String CustomerDetailsForm(Model model) {
-		Customer customer = new Customer();
-		model.addAttribute("customer", customer);
-		return "add-customer";
+	public String RegistrationForm(Model model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		return "add-user";
 	}
 	
-	@PostMapping("/saveCustomer")
-	public String saveCustomer(@Valid Customer customer, Errors errors, Model model) {
+
+	@PostMapping("/saveUser")
+	public String saveUser(@Valid User user, Errors errors, Model model) {
 		if(null != errors && errors.getErrorCount() > 0)
 			return "redirect:/";
 		else {
-			customerService.saveCustomer(customer);
-			List<Customer> customers = customerService.getAllCustomer();
+			userService.saveUser(user);
+			List<User> users = userService.getAllUser();
 			model.addAttribute("successMessage", "Details are saved successfully");
 		}
-		return "redirect:/getCustomers";
+		return "redirect:/getUsers";
 	}
 	
-	@GetMapping("/getCustomers")
-	public String getAllCustomer(Model model) {
-		List<Customer> customers = customerService.getAllCustomer();
-		model.addAttribute("customers", customers);
-		return "list-customer";
+	@GetMapping("/getUsers")
+	public String getAllUser(Model model) {
+		List<User> users = userService.getAllUser();
+		model.addAttribute("users", users);
+		return "list-user";
 	}
+	
 	
 	//For Vehicle
 	@GetMapping("/vehicleForm")
@@ -110,6 +107,23 @@ public class UIController {
 	}
 	
 	
+	@GetMapping("/vehicles/editVehicle/{id}")
+	public String updateFormVehicle(@PathVariable(value="id" )long id,  Model model)
+	{
+		Vehicle vehicle=vehicleService.getVehicleById(id);
+		model.addAttribute("vehicle",vehicle);
+		return "update-vehicle";
+	}
+		@PostMapping("/vehicles/editVehicle/{id}")
+		public String updateVehicle(@PathVariable(value="id" )long id, @ModelAttribute Vehicle vehicle, Model model) {
+			vehicleService.updateVehicle(vehicle, id);
+			model.addAttribute("message","record updated successfully");
+			getAllVehicle(model);
+			return null;
+		}
+	
+	
+	
 	//For Insurance
 	@GetMapping("/insuranceForm")
 	public String insuranceDetailsForm(Model model) {
@@ -136,89 +150,50 @@ public class UIController {
 		model.addAttribute("insurances", insurances);
 		return "list-insurance";
 	}
+		
 	
 	
-	//For Search
-	@GetMapping("/searchForm")
-	public String SearchDetailsForm(Model model) {
-		Search search = new Search();
-		model.addAttribute("search", search);
-		return "add-search";
-	}
 	
-	@PostMapping("/saveSearch")
-	public String saveSearch(@Valid Search search, Errors errors, Model model) {
-		if(null != errors && errors.getErrorCount() > 0)
-			return "redirect:/";
-		else {
-			searchService.saveSearch(search);
-			List<Search> searches = searchService.getAllSearch();
-			model.addAttribute("successMessage", "Details are saved successfully");
-		}
-		return "redirect:/getSearches";
-	}
 	
-	@GetMapping("/getSearches")
-	public String getAllSearch(Model model) {
-		List<Search> searches = searchService.getAllSearch();
-		model.addAttribute("searches", searches);
-		return "list-search";
-	}
-	
-	/*------------------------------------For Edit And Delete Operation-----------------------------------*/
+	//------------------------------------For Edit And Delete Operation-----------------------------------
 	
 	//Edit Customer
-	@GetMapping("/customers/editCust/{id}")
-	public String editCustomerById(Model model, @PathVariable("id") Optional<Long> id) 
-							throws RecordNotFoundException 
+	@GetMapping("/users/editUser/{id}")
+	public String edituserById(Model model, @PathVariable("id") long id) 
+							
 	{
-		
-		System.out.println("editCustomerById" + id);
-		if (id.isPresent()) {
-			Customer customer = customerService.getCustomerById(id.get());
-			model.addAttribute("customer", customer);
-		} else {
-			model.addAttribute("customer", new Customer());
-		}
-		
-		
-		return "add-edit-customer";
+	System.out.println("editUserById" + id);
+	User user = userService.getUserById(id);
+			model.addAttribute("user", user);
+		return "update-user";
 	}
 	
 	
 	//For Delete Customer
-	@GetMapping("/customers/deleteCust/{id}")
-	public String deleteCustomer(Model model, @PathVariable("id") Long id) 
+	@GetMapping("/users/deleteUser/{id}")
+	public String deleteUser(Model model, @PathVariable("id") Long id) 
 							throws RecordNotFoundException 
 	{
 		
-		System.out.println("deleteCustomer" + id);
+		System.out.println("deleteUser" + id);
 		
-		customerService.deleteCustomer(id);
+		userService.deleteUser(id);
 		return "redirect:/";
 	}
 	
 	
 	//Edit Vehicle
-		@GetMapping("/vehicles/editVehicle/{id}")
-		public String editVehicleById(Model model, @PathVariable("id") Optional<Long> id) 
-								throws RecordNotFoundException 
-		{
-			
-			System.out.println("editVehicleById" + id);
-			if (id.isPresent()) {
-				Vehicle vehicle = vehicleService.getVehicleById(id.get());
-				model.addAttribute("vehicle", vehicle);
-			} else {
-				model.addAttribute("vehicle", new Vehicle());
-			}
-			
-			
-			return "add-edit-vehicle";
-		}
+//	@GetMapping("/vehicles/editVehicle/{id}")
+//	public String editVehicleById(Model model, @PathVariable("id") long id) 
+//							
+//	{
+//	System.out.println("editVehicleById" + id);
+//	Vehicle vehicle = vehicleService.getVehicleById(id);
+//	model.addAttribute("vehicle", vehicle);
+//		return "update-vehicle";
+//	}
 		
-		
-		//For Delete Vehicle
+		//For Delete Vehicle`
 		@GetMapping("/vehicles/deleteVehicle/{id}")
 		public String deleteVehicle(Model model, @PathVariable("id") Long id) 
 								throws RecordNotFoundException 
@@ -233,20 +208,13 @@ public class UIController {
 		
 		//Edit Insurance
 		@GetMapping("/insurances/editInsurance/{id}")
-		public String editInsuranceById(Model model, @PathVariable("id") Optional<Long> id) 
-								throws RecordNotFoundException 
+		public String editInsuranceById(Model model, @PathVariable("id") long id) 
+								
 		{
-			
-			System.out.println("editInsuranceById" + id);
-			if (id.isPresent()) {
-				Insurance insurance = insuranceService.getInsuranceById(id.get());
+		System.out.println("editInsuranceById" + id);
+		Insurance insurance = insuranceService.getInsuranceById(id);
 				model.addAttribute("insurance", insurance);
-			} else {
-				model.addAttribute("insurance", new Insurance());
-			}
-			
-			
-			return "add-edit-insurance";
+			return "update-insurance";
 		}
 		
 		
@@ -261,37 +229,7 @@ public class UIController {
 			insuranceService.deleteInsurance(id);
 			return "redirect:/";
 		}
-		
-		//Edit Search
-		@GetMapping("/searches/editSearch/{id}")
-		public String editSearchrById(Model model, @PathVariable("id") Optional<Long> id) 
-								throws RecordNotFoundException 
-		{
-			
-			System.out.println("editSearchById" + id);
-			if (id.isPresent()) {
-				Search search = searchService.getSearchById(id.get());
-				model.addAttribute("search", search);
-			} else {
-				model.addAttribute("search", new Search());
-			}
-			
-			
-			return "add-edit-search";
-		}
-		
-		
-		//For Delete Insurance
-		@GetMapping("/searches/deletesearch/{id}")
-		public String deleteSearch(Model model, @PathVariable("id") Long id) 
-								throws RecordNotFoundException 
-		{
-			
-			System.out.println("deleteSearch" + id);
-			
-			searchService.deleteSearch(id);
-			return "redirect:/";
-		}
+
 	
 	
 	

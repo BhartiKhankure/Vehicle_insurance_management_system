@@ -63,7 +63,6 @@ public class VehicleServiceImpl implements VehicleService {
 		veh.setPlateNumber(vehicle.getPlateNumber());
 		veh.setManufacturer(vehicle.getManufacturer());
 		veh.setType(vehicle.getType());
-		veh.setColor(vehicle.getColor());
 		veh.setRegistrationDate(vehicle.getRegistrationDate());
 		veh.setPendingFines(vehicle.getPendingFines());
 
@@ -105,15 +104,13 @@ public class VehicleServiceImpl implements VehicleService {
 		if (vehicle.getType() != null) {
 			newVehicle.setType(vehicle.getType());
 		}
-		if (vehicle.getColor() != null) {
-			newVehicle.setColor(vehicle.getColor());
-		}
+		
 		if (vehicle.getRegistrationDate() != null) {
 			newVehicle.setRegistrationDate(vehicle.getRegistrationDate());
 		}
-//			if(vehicle.getPendingFines() != null) {
-//				newVehicle.setPendingFines(vehicle.getPendingFines());
-//			}
+		if(vehicle.getPendingFines() != 0) {
+			newVehicle.setPendingFines(vehicle.getPendingFines());
+		}
 		if (vehicle.getInsurance() != null) {
 			newVehicle.setInsurance(vehicle.getInsurance());
 		}
