@@ -99,7 +99,7 @@ public class InsuranceServiceImpl implements InsuranceService {
 	}
 
 	@Override
-	public List<Insurance> getInsuranceByInsuranceNumber(String insuranceNumber) {
+	public Optional<Insurance> getInsuranceByInsuranceNumber(String insuranceNumber) {
 		return insuranceRepository.findByInsuranceNumber(insuranceNumber);
 	}
 }

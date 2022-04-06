@@ -10,12 +10,12 @@
 
 <div th:replace="fragments::menu"> </div>
 
-<div class = "vh-100 container">
+<div class = "vh-100 wh-100 container">
 	<div class = "row">
 		<div class = "col-md-8 offset-md-2">
 			<div class = "card">
 				<div class = "card-body" style = "background-color: aliceblue">
-					<h3 class = "text-center text-success mb-2 p-3">Add User Details</h3>
+					<h3 class = "text-center text-success mb-2 p-3">Registration Form</h3>
 					<form th:action="@{/saveUser}" th:object="${user}" method="post" class="form-needs-validation">
 						<div class = "form-group">
 							<label for = "firstName">First Name</label>
@@ -31,7 +31,7 @@
  						
  						<div class = "form-group">
  							<label for = "email">Email</label>
-							<input class = "form-control" type = "text" th:field = "*{email}" id = "email" placeholder = "Add Email">
+							<input class = "form-control" type = "email" th:field = "*{email}" id = "email" placeholder = "Add Email">
 							<div th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"></div>
  						</div>
  						
@@ -43,16 +43,10 @@
  						
  						<div class = "form-group">
  							<label for = "password">Password</label>
-							<input class = "form-control" type = "text" th:field = "*{password}" id = "password" placeholder = "Add Password">
+							<input class = "form-control" type = "password" th:field = "*{password}" id = "password" placeholder = "Add Password">
 							<div th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"></div>
  						</div>
- 						
- 						<div class = "form-group">
- 							<label for = "active">Active</label>
-							<input class = "form-control" type = "text" th:field = "*{active}" id = "active">
-							<div th:if = "${#fields.hasErrors('active')}" th:errors = "*{active}"></div>
- 						</div>
- 						
+ 					
  						<div class = "form-group">
  							<label for = "gender">Gender</label>
 							<input class = "form-control" type = "text" th:field = "*{gender}" id = "gender" placeholder = "Add Gender">
@@ -83,8 +77,9 @@
 							<div th:if = "${#fields.hasErrors('licenceNumber')}" th:errors = "*{licenceNumber}"></div>
  						</div>
  						
- 						<input type = "submit" class = "btn btn-primary mb-3" value = "Add User">
- 						<a th:href = "@{/getUsers}" class = "btn btn-primary btn-md mb-3 float-right">User List</a>
+ 						<input type = "submit" class = "btn btn-success mb-3" value = "Register">
+ 					<h4>Already Register?</h4>
+ 					<a th:href="@{/login}">Login Here</a>
  						
 					</form>
 				</div>

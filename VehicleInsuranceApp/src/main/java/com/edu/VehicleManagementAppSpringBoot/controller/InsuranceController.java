@@ -1,6 +1,7 @@
 package com.edu.VehicleManagementAppSpringBoot.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +64,7 @@ public class InsuranceController {
 	}
 
 	@GetMapping("/insuranceByInsuranceNumber/{insuranceNumber}")
-	public List<Insurance> getInsuranceByInsuranceNumber(@PathVariable("insuranceNumber") String insuranceNumber) {
+	public Optional<Insurance> getInsuranceByInsuranceNumber(@PathVariable("insuranceNumber") String insuranceNumber) {
 		return insuranceService.getInsuranceByInsuranceNumber(insuranceNumber);
 	}
 

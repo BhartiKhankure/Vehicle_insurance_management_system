@@ -1,6 +1,7 @@
 package com.edu.VehicleManagementAppSpringBoot.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,11 @@ public class UserController {
 	@GetMapping("/userByFirstName/{firstName}")
 	public List<User> getUserByFirstName(@PathVariable("firstName") String firstName) {
 		return userService.getUserByFirstName(firstName);
+	}
+	
+	@GetMapping("/userByEmail")
+	public Optional<User> getUserByEmail(@PathVariable("email") String email){
+		return userService.getUserByEmail(email);
 	}
 
 	@GetMapping("/userByLastName/{lastName}")

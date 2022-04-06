@@ -7,19 +7,19 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.edu.VehicleManagementAppSpringBoot.entity.Insurance;
 import com.edu.VehicleManagementAppSpringBoot.entity.User;
 import com.edu.VehicleManagementAppSpringBoot.entity.Vehicle;
-import com.edu.VehicleManagementAppSpringBoot.service.AdminService;
 import com.edu.VehicleManagementAppSpringBoot.service.InsuranceService;
 import com.edu.VehicleManagementAppSpringBoot.service.UserService;
 import com.edu.VehicleManagementAppSpringBoot.service.VehicleService;
+
 
 
 @Controller
@@ -27,16 +27,15 @@ public class UIController {
 	private UserService userService;
 	private VehicleService vehicleService;
 	private InsuranceService insuranceService;
-	private AdminService adminService;
+
 	
 	
 	@Autowired
-	public UIController(UserService userService, VehicleService vehicleService, InsuranceService insuranceService, AdminService adminService) {
+	public UIController(UserService userService, VehicleService vehicleService, InsuranceService insuranceService) {
 		super();
 		this.userService = userService;
 		this.vehicleService = vehicleService;
 		this.insuranceService = insuranceService;
-		this.adminService = adminService;
 		
 	}
 	
@@ -50,18 +49,30 @@ public class UIController {
 		return "login";
 	}
 	
-	//For user
+	//For user registration
 	@GetMapping("/registration")
 	public String RegistrationForm(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
-		return "add-user";
+		return "registration";
 	}
-	
+	/*@PostMapping("/customer/saveCustomer")
+	public String saveCustomer(@Valid  Customer customer, BindingResult result , Model model) {
+		if (result.hasErrors()) {
+		    return "add-customer";
+		  }else {
+	    customerService.saveCustomer(customer);
+	    List<Customer> customers =  customerService.getAllCustomer();
+	    model.addAttribute("successMessage", "Details are saved successfully");
+	    getAllCustomer(model);
+		}
+	    return "list-customer";
+	    
+	}*/
 
 	@PostMapping("/saveUser")
-	public String saveUser(@Valid User user, Errors errors, Model model) {
-		if(null != errors && errors.getErrorCount() > 0)
+	public String saveUser(@Valid User user, BindingResult result, Model model) {
+		if(result.hasErrors())
 			return "redirect:/";
 		else {
 			userService.saveUser(user);
@@ -77,6 +88,7 @@ public class UIController {
 		model.addAttribute("users", users);
 		return "list-user";
 	}
+	
 	
 	
 	//For Vehicle
@@ -105,23 +117,6 @@ public class UIController {
 		model.addAttribute("vehicles", vehicles);
 		return "list-vehicle";
 	}
-	
-	
-	@GetMapping("/vehicles/editVehicle/{id}")
-	public String updateFormVehicle(@PathVariable(value="id" )long id,  Model model)
-	{
-		Vehicle vehicle=vehicleService.getVehicleById(id);
-		model.addAttribute("vehicle",vehicle);
-		return "update-vehicle";
-	}
-		@PostMapping("/vehicles/editVehicle/{id}")
-		public String updateVehicle(@PathVariable(value="id" )long id, @ModelAttribute Vehicle vehicle, Model model) {
-			vehicleService.updateVehicle(vehicle, id);
-			model.addAttribute("message","record updated successfully");
-			getAllVehicle(model);
-			return null;
-		}
-	
 	
 	
 	//For Insurance
@@ -172,7 +167,7 @@ public class UIController {
 	//For Delete Customer
 	@GetMapping("/users/deleteUser/{id}")
 	public String deleteUser(Model model, @PathVariable("id") Long id) 
-							throws RecordNotFoundException 
+							
 	{
 		
 		System.out.println("deleteUser" + id);
@@ -183,20 +178,20 @@ public class UIController {
 	
 	
 	//Edit Vehicle
-//	@GetMapping("/vehicles/editVehicle/{id}")
-//	public String editVehicleById(Model model, @PathVariable("id") long id) 
-//							
-//	{
-//	System.out.println("editVehicleById" + id);
-//	Vehicle vehicle = vehicleService.getVehicleById(id);
-//	model.addAttribute("vehicle", vehicle);
-//		return "update-vehicle";
-//	}
+	@GetMapping("/vehicles/editVehicle/{id}")
+	public String editVehicleById(Model model, @PathVariable("id") long id) 
+							
+	{
+	System.out.println("editVehicleById" + id);
+	Vehicle vehicle = vehicleService.getVehicleById(id);
+	model.addAttribute("vehicle", vehicle);
+		return "update-vehicle";
+	}
 		
 		//For Delete Vehicle`
 		@GetMapping("/vehicles/deleteVehicle/{id}")
 		public String deleteVehicle(Model model, @PathVariable("id") Long id) 
-								throws RecordNotFoundException 
+								
 		{
 			
 			System.out.println("deleteVehicle" + id);
@@ -221,7 +216,7 @@ public class UIController {
 		//For Delete Insurance
 		@GetMapping("/insurances/deleteInsurance/{id}")
 		public String deleteInsurance(Model model, @PathVariable("id") Long id) 
-								throws RecordNotFoundException 
+							
 		{
 			
 			System.out.println("deleteInsurance" + id);
@@ -231,7 +226,27 @@ public class UIController {
 		}
 
 	
-	
+		@GetMapping("/user/userAccount")
+		public String userAccount(Model model) {
+			Vehicle vehicle = new Vehicle();
+			model.addAttribute("vehicle", vehicle);
+			return "user-account";
+		}
+		
+		@PostMapping("/userAccount")
+		public String saveAccountVehicle(@Valid Vehicle vehicle, Errors errors, Model model) {
+			if(null != errors && errors.getErrorCount() > 0)
+				return "redirect:/";
+			else {
+				vehicleService.saveVehicle(vehicle);
+				List<Vehicle> vehicles = vehicleService.getAllVehicle();
+				model.addAttribute("successMessage", "Details are saved successfully");
+			}
+			return "add-user-account";
+		}
+		
+
+		
 	
 	
 }

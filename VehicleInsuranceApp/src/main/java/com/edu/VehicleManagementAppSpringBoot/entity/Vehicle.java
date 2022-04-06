@@ -58,15 +58,12 @@ public class Vehicle {
 	//		@JoinColumn(name = "user_id") })
 	public User user;
 	
-	public Vehicle() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
 
 	public Vehicle(long id, String category, String plateNumber, String manufacturer, String type,
 			LocalDate registrationDate, double premiumAmount, LocalDate nextPreDate, LocalDate previousPreDate,
 			int pendingFines, Insurance insurance, User user) {
-		super();
+		
 		this.id = id;
 		this.category = category;
 		this.plateNumber = plateNumber;
@@ -79,6 +76,11 @@ public class Vehicle {
 		this.pendingFines = pendingFines;
 		this.insurance = insurance;
 		this.user = user;
+	}
+
+	public Vehicle() {
+		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public long getId() {

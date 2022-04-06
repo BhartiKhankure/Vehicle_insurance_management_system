@@ -1,6 +1,7 @@
 package com.edu.VehicleManagementAppSpringBoot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.edu.VehicleManagementAppSpringBoot.entity.Insurance;
 
@@ -22,7 +23,7 @@ public interface InsuranceService {
 
 	List<Insurance> getInsuranceByInsuranceProvider(String insuranceProvider);
 
-	List<Insurance> getInsuranceByInsuranceNumber(String insuranceNumber);
+	Optional<Insurance> getInsuranceByInsuranceNumber(String insuranceNumber);
 
 	
 

@@ -1,45 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="pageHeader">
 <meta charset="ISO-8859-1">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<title>Vehicle Insurance Management System</title>
 <!--Bootstrap CSS-->
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+	>
 	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-        crossorigin="anonymous">
-
+       >
+      
+    
 <!--Bootstrap JS-->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous">
-
-	
-</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">	</script>
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous">
-	
-</script>
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous">
-	
-</script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
 <style>
 .footer {
 	background-color: black;
 	text-align: justify;
+	padding: 10px;
 }
 </style>
 </head>
@@ -47,38 +35,60 @@
 <div th:fragment="menu">
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-			<a class="navbar-brand text-light text-uppercase" th:href="@{/}">Vehicle
-				Insurance management system</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+			
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-					<a class="nav-link text-light" th:href="@{/}">Dashboard<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link text-light" href="#">Admin</a>
+					<a class="nav-link text-light" th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link text-light" th:href="@{/user/userAccount}">Account</a>
+					<li class="nav-item"><a class="nav-link text-light" th:href="@{/getUsers}">User List</a>
 					</li>
-
-					<li class="nav-item"><a class="nav-link text-light" href="#">About
-							us</a></li>
-					<li class="nav-item"><a class="nav-link text-light" href="#">Contact
-							us</a></li>
+				
+				<li class="nav-item">
+					<div class="dropdown">
+						<button class="btn btn-dark dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Vehicle</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" th:href="@{/vehicleForm}">Add Vehicle</a>
+							<a class="dropdown-item" th:href="@{/getVehicles}">Vehicle List</a>
+						</div>
+					</div>
+				</li>
+				
+				<li class="nav-item">
+					<div class="dropdown">
+						<button class="btn btn-dark dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Insurance</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" th:href="@{/insuranceForm}">Add Insurance</a>
+							<a class="dropdown-item" th:href="@{/getInsurances}">Insurance List</a>
+						</div>
+					</div>
+				</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
+					 <ul class="nav navbar-nav navbar-right">
+				      <li sec:authorize="!isAuthenticated()">
+				      <a class="nav-link text-light" th:href="@{/registration}"><span class="glyphicon glyphicon-user">Sign Up</span></a>
+				      </li>
+				    <li sec:authorize="!isAuthenticated()" class="nav-item">
+				            <a class="btn nav-link text-light" th:href="@{/login}"><span class="glyphicon glyphicon-log-in">Login</span></a>
+				        </li>
+				        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+				            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+				               aria-haspopup="true" aria-expanded="false" sec:authentication="name">
+				            </a>
+				            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				                <a class="pl-3 btn btn-outline-light" th:href="@{/user/userAccount}">Profile</a>
+				                <div class="dropdown-divider"></div>
+				                <a class="pl-3 btn btn-outline-light" th:href="@{/logout}">Logout</a>
+				            </div>
+				        </li>
+				    </ul>
 
-					<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
-						<a class="text-warning" th:href="@{/login}">Sign In</a>
-					</button>
-
-					<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
-						<a class="text-warning" th:href="@{/registration}">Sign Up</a>
-					</button>
-
-				</form>
+				
 			</div>
 		</nav>
 
@@ -87,7 +97,7 @@
 <div th:fragment="pageFooter">
 	<footer class="footer">
 		<div class="container">
-			<span class="text-warning"><marquee style = "font-size: 25px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Vehicle Insurance Management System.</marquee></span>
+			<span class="text-warning text-upercase"><marquee style = "font-size: 25px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Vehicle Insurance Management System.</marquee></span>
 		</div>
 	</footer>
 </div>

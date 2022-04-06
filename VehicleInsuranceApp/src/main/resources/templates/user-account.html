@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:insert="fragments::pageHeader">
+		<meta charset="ISO-8859-1">
+		<title>Vehicle Details</title>
+	</head>
+	<body>
+		<div th:replace="fragments::menu"> </div>
+		<div>
+			<div class="card">
+				<div class="card-body">
+					<div th:switch="${vehicles}">
+						<p style="padding:14px">
+							<a href="/userAccount" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a>
+						</p>
+						<div class="col-md-12">
+							
+								 <h3 class="text-warning">Account of User</h3>
+								  <table class="table table-striped table-responsive-md table-bordered">
+                               <thead class="thead-dark">
+                                <tr><th>Vehicle Number</th>
+                                <th>category</th>
+                                <th>Registration Date</th>
+                                <th>Last premium paid on </th>
+                                <th>Next Premium Date</th>
+                                <th>Premium Amount</th>
+                                <th>Payment Mode</th>
+                                
+                                    </tr></thead>
+                                <tbody>
+                                    <tr th:each="vehicle : ${vehicles}">  <!-- 1 -->
+                                        <td th:text="${vehicle.plateNumber}"></td>
+                                        <td th:text="${vehicle.category}"></td>
+                                        <td th:text="${vehicle.registrationDate}"></td>
+                                        <td th:text="${vehicle.nextPreDate}"></td>
+                                        <td th:text="${vehicle.previousPreDate}"></td>
+                                        <td th:text="${vehicle.premiumAmount}"></td>
+                                         <td>
+                                         <a th:href="@{/customer/payment/{id}(id=${custId})}" class="btn btn-primary"><i>Payment</i></a>
+                                         </td> 
+                                     </tr>
+                                </tbody>
+                            </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		<div th:replace="fragments::pageFooter"></div>
+	</body>
+</html>

@@ -1,7 +1,9 @@
 package com.edu.VehicleManagementAppSpringBoot.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.edu.VehicleManagementAppSpringBoot.entity.User;
 import com.edu.VehicleManagementAppSpringBoot.entity.Vehicle;
 
 public interface VehicleService {
@@ -24,8 +26,10 @@ public interface VehicleService {
 
 	Vehicle updateVehiclePartially(Vehicle vehicle, long id);
 
-	List<Vehicle> getVehicleByCategory(String category);
+	Optional<Vehicle> getVehicleByCategory(String category);
 
 	List<Vehicle> getVehicleByType(String type);
+
+
 
 }

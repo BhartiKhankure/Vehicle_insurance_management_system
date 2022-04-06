@@ -37,14 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers("/user/*").hasAuthority("ROLE_USER")
 		.antMatchers("/admin/*").hasAuthority("ROLE_ADMIN")
-		
 		.antMatchers("/","/registration").permitAll()// index.html
 		//.antMatchers("/**").authenticated()
 
 		.and().httpBasic()
 		
 		.and().formLogin()
-		.defaultSuccessUrl("/user/customerAccount", true)
+		.defaultSuccessUrl("/user/userAccount", true)
 		 .permitAll()
 		.and().logout()
 		.logoutSuccessUrl("/")
@@ -54,15 +53,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 	
-  	
   
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
 	
-	/*public BCryptPasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}*/
+	}
 
 }

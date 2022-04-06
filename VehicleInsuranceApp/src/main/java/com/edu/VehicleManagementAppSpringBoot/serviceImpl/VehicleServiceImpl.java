@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.edu.VehicleManagementAppSpringBoot.entity.User;
 import com.edu.VehicleManagementAppSpringBoot.entity.Vehicle;
 import com.edu.VehicleManagementAppSpringBoot.exception.ResourceNotFound;
 import com.edu.VehicleManagementAppSpringBoot.repository.VehicleRepository;
@@ -119,7 +120,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public List<Vehicle> getVehicleByCategory(String category) {
+	public Optional<Vehicle> getVehicleByCategory(String category) {
 		return vehicleRepository.findByCategory(category);
 	}
 
@@ -127,5 +128,6 @@ public class VehicleServiceImpl implements VehicleService {
 	public List<Vehicle> getVehicleByType(String type) {
 		return vehicleRepository.findByType(type);
 	}
+
 
 }

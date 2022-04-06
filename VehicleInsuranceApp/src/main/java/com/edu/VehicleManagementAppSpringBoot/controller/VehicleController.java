@@ -1,6 +1,7 @@
 package com.edu.VehicleManagementAppSpringBoot.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,7 +79,7 @@ public class VehicleController {
 	}
 
 	@GetMapping("/vehicleByCategory/{category}")
-	public List<Vehicle> getVehicleByCategory(@PathVariable("category") String category) {
+	public Optional<Vehicle> getVehicleByCategory(@PathVariable("category") String category) {
 		return vehicleService.getVehicleByCategory(category);
 	}
 

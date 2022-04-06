@@ -1,4 +1,4 @@
-package com.edu.VehicleManagementAppSpringBoot;
+package com.edu.VehicleManagementAppSpringBoot.testRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import com.edu.VehicleManagementAppSpringBoot.repository.UserRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 
-public class customerRepositoryTests {
+public class userRepositoryTests {
 
 	@Autowired
 	private UserRepository userRepository;

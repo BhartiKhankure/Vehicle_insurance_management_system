@@ -34,6 +34,7 @@ public interface UserService {
 	List<User> getUserInOrderDesc();
 
 	User getUserFullNameById(long id);
-	public Optional<User> findUserByEmail(String email);
+
+	Optional<User> getUserByEmail(String email);
 
 }

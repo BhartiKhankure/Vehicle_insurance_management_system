@@ -153,10 +153,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findUserFullNameById(id);
 	}
 
+	
+
+
+
 	@Override
-	public Optional<User> findUserByEmail(String email) {
+	public Optional<User> getUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findByEmail(email);
 	}
 
 	

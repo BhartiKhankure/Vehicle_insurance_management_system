@@ -15,9 +15,7 @@
         <div class="card">
             <div class="card-body">
                 <div th:switch="${users}">
-                    <p style="padding:14px">
-                        <a href="/registration" class="btn btn-primary"><i class="fas fa-user-plus ml-2">  Add User </i></a>
-                    </p>
+                  
                     <div class="col-md-12">
                      <div class="alert alert-warning" th:if="${successMessage}"></div>
                         <h2 th:case="null">No User yet!</h2>
@@ -31,7 +29,6 @@
                                         <th>Email</th>
                                         <th>Contact Number</th>
                                         <th>Password</th>
-                                        <th>Active</th>
                                         <th>Gender</th>
                                         <th>Date Of Birth</th>
                                         <th>Address</th>
@@ -48,7 +45,6 @@
                                         <td th:text="${user.email}"></td>
                                         <td th:text="${user.contactNumber}"></td>
                                         <td th:text="${user.password}"></td>
-                                        <td th:text="${user.active}">
                                         <td th:text="${user.gender}"></td>
                                         <td th:text="${user.dateOfBirth}"></td>
                                         <td th:text="${user.address}"></td>

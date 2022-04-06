@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
-//@Data
+@Data
 @Entity
 @Table(name = "user_tbl")
 public class User {
@@ -31,49 +32,58 @@ public class User {
 	private long id;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="First name can't be Empty")
 	@Column(name = "first_name", nullable=true)
 	private String firstName;
 	
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="Last name can't be Empty")
 	@Column(name = "last_name" , nullable=true)
 	private String lastName;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="Email can't be Empty")
+	@Email
 	@Column(nullable=false ,unique=true)
 	private String email;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="Contact number can't be Empty")
 	@Column(name = "contact_number", nullable=false, unique=true)
 	private String contactNumber;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="Password can't be Empty")
 	@Column(nullable=false)
 	private String password;
 	
 	@Column(nullable=false)
-	private static  String roles="ROLE_CUSTOMER";
+	private static  String roles="ROLE_USER";
 	
 	@Column
-	private boolean active;
+	private static boolean active;
 	
+	@NotNull
+	@NotBlank
 	@Column(nullable=true)
 	private String gender;
 	
 	@Column(nullable=true, name="dob")
 	private LocalDate dateOfBirth;
 	
+	@NotNull
+	@NotBlank(message="Address can't be Empty")
 	@Column
 	private String address;
 	
+	@NotNull
+	@NotBlank
 	@Column(nullable=true)
 	private String nationality;
 	
+	@NotNull
+	@NotBlank
 	@Column(name = "licence_number")
 	private String licenceNumber;
 
@@ -95,11 +105,15 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-		
-		public User(long id, @NotNull @NotBlank String firstName, @NotNull @NotBlank String lastName,
-				@NotNull @NotBlank String email, @NotNull @NotBlank String contactNumber,
-				@NotNull @NotBlank String password, boolean active, String gender, LocalDate dateOfBirth, String address,
-				String nationality, String licenceNumber, List<Vehicle> vehicle) {
+
+		public User(long id, @NotNull @NotBlank(message = "First name can't be Empty") String firstName,
+				@NotNull @NotBlank(message = "Last name can't be Empty") String lastName,
+				@NotNull @NotBlank(message = "Email can't be Empty") @Email String email,
+				@NotNull @NotBlank(message = "Contact number can't be Empty") String contactNumber,
+				@NotNull @NotBlank(message = "Password can't be Empty") String password,boolean active,
+				@NotNull @NotBlank String gender, LocalDate dateOfBirth,
+				@NotNull @NotBlank(message = "Address can't be Empty") String address,
+				@NotNull @NotBlank String nationality, @NotNull @NotBlank String licenceNumber, List<Vehicle> vehicle) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -107,7 +121,7 @@ public class User {
 			this.email = email;
 			this.contactNumber = contactNumber;
 			this.password = password;
-			this.active = active;
+			User.active=isActive();
 			this.gender = gender;
 			this.dateOfBirth = dateOfBirth;
 			this.address = address;
@@ -115,91 +129,123 @@ public class User {
 			this.licenceNumber = licenceNumber;
 			this.vehicle = vehicle;
 		}
+
 		public long getId() {
 			return id;
 		}
+
 		public void setId(long id) {
 			this.id = id;
 		}
+
 		public String getFirstName() {
 			return firstName;
 		}
+
 		public void setFirstName(String firstName) {
 			this.firstName = firstName;
 		}
+
 		public String getLastName() {
 			return lastName;
 		}
+
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
+
 		public String getEmail() {
 			return email;
 		}
+
 		public void setEmail(String email) {
 			this.email = email;
 		}
+
 		public String getContactNumber() {
 			return contactNumber;
 		}
+
 		public void setContactNumber(String contactNumber) {
 			this.contactNumber = contactNumber;
 		}
+
 		public String getPassword() {
 			return password;
 		}
+
 		public void setPassword(String password) {
 			this.password = password;
 		}
+
 		public static String getRoles() {
 			return roles;
 		}
+
 		public static void setRoles(String roles) {
 			User.roles = roles;
 		}
-		public boolean isActive() {
-			return active;
+
+		public static String isRoles() {
+			// TODO Auto-generated method stub
+			return roles="ROLE_ADMIN";
 		}
-		public void setActive(boolean active) {
-			this.active = active;
+
+		public static boolean isActive() {
+			return active = "true" != null;
+			
 		}
 		public String getGender() {
 			return gender;
 		}
+
 		public void setGender(String gender) {
 			this.gender = gender;
 		}
+
 		public LocalDate getDateOfBirth() {
 			return dateOfBirth;
 		}
+
 		public void setDateOfBirth(LocalDate dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 		}
+
 		public String getAddress() {
 			return address;
 		}
+
 		public void setAddress(String address) {
 			this.address = address;
 		}
+
 		public String getNationality() {
 			return nationality;
 		}
+
 		public void setNationality(String nationality) {
 			this.nationality = nationality;
 		}
+
 		public String getLicenceNumber() {
 			return licenceNumber;
 		}
+
 		public void setLicenceNumber(String licenceNumber) {
 			this.licenceNumber = licenceNumber;
 		}
+
 		public List<Vehicle> getVehicle() {
 			return vehicle;
 		}
+
 		public void setVehicle(List<Vehicle> vehicle) {
 			this.vehicle = vehicle;
 		}
 
+		public static void setActive(boolean active) {
+			User.active = "true" != null;
+		}
+
 		
-	
 }

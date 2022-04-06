@@ -63,6 +63,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	User save(User user);
 
+
+
 	
 
 //	 @Query("select new com.edu.VehicleManagementAppSpringBoot.entity.User(count(id), u.vehicle_id, v.plateNumber) from User u , Vehicle v GROUP BY u.vehicle_id")
