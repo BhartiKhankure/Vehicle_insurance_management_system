@@ -33,7 +33,7 @@
                                         <th>Date Of Birth</th>
                                         <th>Address</th>
                                         <th>Nationality</th>
-                                        <th>Licence Number</th>
+                                        <th>License Number</th>
                                         
                                         <th colspan="2">Actions</th>
                                                     </tr>
@@ -50,8 +50,8 @@
                                         <td th:text="${user.address}"></td>
                                         <td th:text="${user.nationality}"></td>
                                         <td th:text="${user.licenceNumber}"></td>
-                                        <td><a th:href="@{/users/editUser/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
-                                        <td><a th:href="@{/users/deleteUser/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
+                                        <td><a th:href="@{/users/editUser/{id}(id=${user.id})}" class="btn btn-success"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
+                                        <td><a th:href="@{/users/deleteUser/{id}(id=${user.id})}" class="btn btn-danger"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
                                     </tr>
                                 </tbody>
                             </table>

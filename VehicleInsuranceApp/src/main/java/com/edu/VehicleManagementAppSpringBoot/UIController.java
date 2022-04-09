@@ -5,11 +5,14 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -56,30 +59,18 @@ public class UIController {
 		model.addAttribute("user", user);
 		return "registration";
 	}
-	/*@PostMapping("/customer/saveCustomer")
-	public String saveCustomer(@Valid  Customer customer, BindingResult result , Model model) {
-		if (result.hasErrors()) {
-		    return "add-customer";
-		  }else {
-	    customerService.saveCustomer(customer);
-	    List<Customer> customers =  customerService.getAllCustomer();
-	    model.addAttribute("successMessage", "Details are saved successfully");
-	    getAllCustomer(model);
-		}
-	    return "list-customer";
-	    
-	}*/
-
 	@PostMapping("/saveUser")
-	public String saveUser(@Valid User user, BindingResult result, Model model) {
-		if(result.hasErrors())
-			return "redirect:/";
-		else {
-			userService.saveUser(user);
-			List<User> users = userService.getAllUser();
-			model.addAttribute("successMessage", "Details are saved successfully");
+	public String saveUser(@Valid  User user, BindingResult result , Model model) {
+		if (result.hasErrors()) {
+		    return "registration";
+		  }else {
+	    userService.saveUser(user);
+	    List<User> users =  userService.getAllUser();
+	    model.addAttribute("successMessage", "Details are saved successfully");
+	    getAllUser(model);
 		}
-		return "redirect:/getUsers";
+	    return "redirect:/getUsers";
+	    
 	}
 	
 	@GetMapping("/getUsers")
@@ -99,17 +90,21 @@ public class UIController {
 		return "add-vehicle";
 	}
 	
+	
 	@PostMapping("/saveVehicle")
-	public String saveVehicle(@Valid Vehicle vehicle, Errors errors, Model model) {
-		if(null != errors && errors.getErrorCount() > 0)
-			return "redirect:/";
-		else {
-			vehicleService.saveVehicle(vehicle);
-			List<Vehicle> vehicles = vehicleService.getAllVehicle();
-			model.addAttribute("successMessage", "Details are saved successfully");
+	public String saveVehicle(@Valid  Vehicle vehicle, BindingResult result , Model model) {
+		if (result.hasErrors()) {
+		    return "add-vehicle";
+		  }else {
+	    vehicleService.saveVehicle(vehicle);
+	   // List<Vehicle> vehicles =  vehicleService.getAllVehicle();
+	    model.addAttribute("successMessage", "Details are saved successfully");
+	    getAllVehicle(model);
 		}
-		return "redirect:/getVehicles";
+	    return "redirect:/getVehicles";
+	    
 	}
+
 	
 	@GetMapping("/getVehicles")
 	public String getAllVehicle(Model model) {
@@ -119,6 +114,21 @@ public class UIController {
 	}
 	
 	
+	@GetMapping("/vehicles/editVehicle/{id}")
+	public String updateFormVehicle(@PathVariable(value="id" )long id,  Model model)
+	{
+		Vehicle vehicle=vehicleService.getVehicleById(id);
+		model.addAttribute("vehicle",vehicle);
+		return "update-vehicle";
+	}
+		@PostMapping("/vehicles/editVehicle")
+		public String updateVehicle(@PathVariable(value="id" )long id, @ModelAttribute Vehicle vehicle, Model model) {
+			vehicleService.updateVehicle(vehicle, id);
+			model.addAttribute("message","record updated successfully");
+			getAllVehicle(model);
+			return null;
+		}
+	
 	//For Insurance
 	@GetMapping("/insuranceForm")
 	public String insuranceDetailsForm(Model model) {
@@ -127,17 +137,21 @@ public class UIController {
 		return "add-insurance";
 	}
 	
+	
 	@PostMapping("/saveInsurance")
-	public String saveInsurance(@Valid Insurance insurance, Errors errors, Model model) {
-		if(null != errors && errors.getErrorCount() > 0)
-			return "redirect:/";
-		else {
-			insuranceService.saveInsurance(insurance);
-			List<Insurance> insurances = insuranceService.getAllInsurance();
-			model.addAttribute("successMessage", "Details are saved successfully");
+	public String saveInsurance(@Valid  Insurance insurance, BindingResult result , Model model) {
+		if (result.hasErrors()) {
+		    return "add-insurance";
+		  }else {
+	    insuranceService.saveInsurance(insurance);
+	    List<Insurance> insurances =  insuranceService.getAllInsurance();
+	    model.addAttribute("successMessage", "Details are saved successfully");
+	    getAllInsurance(model);
 		}
-		return "redirect:/getInsurances";
+	    return "redirect:/getInsurances";
+	    
 	}
+
 	
 	@GetMapping("/getInsurances")
 	public String getAllInsurance(Model model) {
@@ -177,17 +191,6 @@ public class UIController {
 	}
 	
 	
-	//Edit Vehicle
-	@GetMapping("/vehicles/editVehicle/{id}")
-	public String editVehicleById(Model model, @PathVariable("id") long id) 
-							
-	{
-	System.out.println("editVehicleById" + id);
-	Vehicle vehicle = vehicleService.getVehicleById(id);
-	model.addAttribute("vehicle", vehicle);
-		return "update-vehicle";
-	}
-		
 		//For Delete Vehicle`
 		@GetMapping("/vehicles/deleteVehicle/{id}")
 		public String deleteVehicle(Model model, @PathVariable("id") Long id) 
@@ -225,7 +228,7 @@ public class UIController {
 			return "redirect:/";
 		}
 
-	
+
 		@GetMapping("/user/userAccount")
 		public String userAccount(Model model) {
 			Vehicle vehicle = new Vehicle();
@@ -245,8 +248,23 @@ public class UIController {
 			return "add-user-account";
 		}
 		
+		public String currentUser() {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+			String userEmail;
+			if (principal instanceof UserDetails) {
+			    userEmail = ((UserDetails)principal).getUsername();
+			} else {
+			     userEmail = null;
+			}
+	       return userEmail;
+		}
 		
-	
+			
+
+			@GetMapping("/logout")
+			public String logout() {
+				return "/";
+			}
 	
 }

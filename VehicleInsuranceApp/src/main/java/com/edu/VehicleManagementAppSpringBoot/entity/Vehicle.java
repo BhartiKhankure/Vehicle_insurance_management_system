@@ -12,12 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
-@Data
+//@Data
 @Entity
 @Table(name = "vehicle_tbl")
 public class Vehicle {
@@ -28,22 +30,44 @@ public class Vehicle {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "veh_id")
 	private long id;
+	
+	@NotNull
+	@NotBlank(message="Category can't be Empty")
 	@Column
 	private String category;
+	
+	@NotNull
+	@NotBlank(message="Plate Number can't be Empty")
 	@Column(name = "plate_number" , unique=true)
 	private String plateNumber;
+	
+	@NotNull
+	@NotBlank(message="Manufacturer can't be Empty")
 	@Column
 	private String manufacturer;
+	
+	@NotNull
+	@NotBlank(message="Type can't be Empty")
 	@Column
 	private String type;
+	
+	@NotNull
 	@Column(name = "registration_date")
 	private LocalDate registrationDate;
+	
+	@NotNull
 	@Column(name = "premiumAmount")
 	private double premiumAmount;
+	
+	@NotNull
     @Column(name="next_premium_date")
     private LocalDate nextPreDate;
+	
+	@NotNull
     @Column(name="previous_premium_date")
     private LocalDate previousPreDate;
+	
+	@NotNull
     @Column
     private int pendingFines;
     
@@ -60,10 +84,14 @@ public class Vehicle {
 	
 
 
-	public Vehicle(long id, String category, String plateNumber, String manufacturer, String type,
-			LocalDate registrationDate, double premiumAmount, LocalDate nextPreDate, LocalDate previousPreDate,
-			int pendingFines, Insurance insurance, User user) {
-		
+	
+	public Vehicle(long id, @NotNull @NotBlank(message = "Category can't be Empty") String category,
+			@NotNull @NotBlank(message = "Plate Number can't be Empty") String plateNumber,
+			@NotNull @NotBlank(message = "Manufacturer can't be Empty") String manufacturer,
+			@NotNull @NotBlank(message = "Type can't be Empty") String type, @NotNull LocalDate registrationDate,
+			@NotNull double premiumAmount, @NotNull LocalDate nextPreDate, @NotNull LocalDate previousPreDate,
+			@NotNull int pendingFines, Insurance insurance, User user) {
+		super();
 		this.id = id;
 		this.category = category;
 		this.plateNumber = plateNumber;
@@ -79,6 +107,11 @@ public class Vehicle {
 	}
 
 	public Vehicle() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
+	public Vehicle(String string, String string2, String string3, String string4) {
 		// TODO Auto-generated constructor stub
 		super();
 	}

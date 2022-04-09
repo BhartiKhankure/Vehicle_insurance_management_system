@@ -37,8 +37,8 @@
                                         <td th:text="${insurance.insuranceValidity}"></td>
                                         
                                        
-                                        <td><a th:href="@{/insurances/editInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
-                                        <td><a th:href="@{/insurances/deleteInsurance/{id}(id=${insurance.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
+                                        <td><a th:href="@{/insurances/editInsurance/{id}(id=${insurance.id})}" class="btn btn-success"><i class="fas fa-user-edit ml-2">Edit</i></a></td> 
+                                        <td><a th:href="@{/insurances/deleteInsurance/{id}(id=${insurance.id})}" class="btn btn-danger"><i class="fas fa-user-times ml-2">Delete</i></a></td> 
                                     </tr>
                                 </tbody>
                             </table>

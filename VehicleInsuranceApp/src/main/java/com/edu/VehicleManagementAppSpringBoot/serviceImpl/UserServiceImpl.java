@@ -163,6 +163,12 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(email);
 	}
 
+	@Override
+	public long getIdByEmail(String userEmail) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	
 

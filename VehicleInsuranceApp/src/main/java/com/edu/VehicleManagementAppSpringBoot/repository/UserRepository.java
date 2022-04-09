@@ -63,6 +63,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	User save(User user);
 
+	long getIdByEmail(String userEmail);
+
 
 
 	

@@ -37,4 +37,6 @@ public interface UserService {
 
 	Optional<User> getUserByEmail(String email);
 
+	long getIdByEmail(String userEmail);
+
 }

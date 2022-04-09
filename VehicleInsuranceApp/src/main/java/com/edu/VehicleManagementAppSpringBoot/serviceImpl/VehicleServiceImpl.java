@@ -129,5 +129,16 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicleRepository.findByType(type);
 	}
 
+	@Override
+	public List<Vehicle> getVehiclesByUserId(long id) {
+		return vehicleRepository.findVehiclesByUserId(id);
+	}
+
+	@Override
+	public List<Vehicle> getVehiclesByUserId(User id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

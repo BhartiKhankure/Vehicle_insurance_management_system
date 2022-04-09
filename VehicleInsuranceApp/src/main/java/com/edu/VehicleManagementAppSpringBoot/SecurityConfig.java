@@ -35,15 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	http.csrf().disable()
 
 		.authorizeRequests()
-		.antMatchers("/user/*").hasAuthority("ROLE_USER")
-		.antMatchers("/admin/*").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/vehicleForm").hasAuthority("ROLE_USER")
+		.antMatchers("/insuranceForm").hasAuthority("ROLE_ADMIN")
 		.antMatchers("/","/registration").permitAll()// index.html
 		//.antMatchers("/**").authenticated()
 
 		.and().httpBasic()
 		
 		.and().formLogin()
-		.defaultSuccessUrl("/user/userAccount", true)
+		.defaultSuccessUrl("/user/userAccount",true)
+	
 		 .permitAll()
 		.and().logout()
 		.logoutSuccessUrl("/")

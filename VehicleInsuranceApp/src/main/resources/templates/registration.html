@@ -16,70 +16,78 @@
 			<div class = "card">
 				<div class = "card-body" style = "background-color: aliceblue">
 					<h3 class = "text-center text-success mb-2 p-3">Registration Form</h3>
-					<form th:action="@{/saveUser}" th:object="${user}" method="post" class="form-needs-validation">
+					<form th:action="@{/saveUser}" th:object="${user}" method="post" class="form-needs-validation" novalidate>
 						<div class = "form-group">
 							<label for = "firstName">First Name</label>
-							<input class = "form-control" type = "text" th:field = "*{firstName}" id = "firstName" placeholder = "Add First Name">
-							<div th:if = "${#fields.hasErrors('firstName')}" th:errors = "*{firstName}"></div>
+							<input class = "form-control" type = "text" th:field = "*{firstName}" id = "firstName" placeholder = "Add First Name" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('firstName')}" th:errors = "*{firstName}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "lastName">Last Name</label>
-							<input class = "form-control" type = "text" th:field = "*{lastName}" id = "lastName" placeholder = "Add Last Name">
-							<div th:if = "${#fields.hasErrors('lastName')}" th:errors = "*{lastName}"></div>
+							<input class = "form-control" type = "text" th:field = "*{lastName}" id = "lastName" placeholder = "Add Last Name" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('lastName')}" th:errors = "*{lastName}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "email">Email</label>
-							<input class = "form-control" type = "email" th:field = "*{email}" id = "email" placeholder = "Add Email">
-							<div th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"></div>
+							<input class = "form-control" type = "email" th:field = "*{email}" id = "email" placeholder = "Add Email" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "contactNumber">Contact Number</label>
-							<input class = "form-control" type = "text" th:field = "*{contactNumber}" id = "contactNumber" placeholder = "Add Contact Number">
-							<div th:if = "${#fields.hasErrors('contactNumber')}" th:errors = "*{contactNumber}"></div>
+							<input class = "form-control" type = "text" th:field = "*{contactNumber}" id = "contactNumber" placeholder = "Add Contact Number" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('contactNumber')}" th:errors = "*{contactNumber}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "password">Password</label>
-							<input class = "form-control" type = "password" th:field = "*{password}" id = "password" placeholder = "Add Password">
-							<div th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"></div>
+							<input class = "form-control" type = "password" th:field = "*{password}" id = "password" placeholder = "Add Password" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}"></div>
  						</div>
  					
  						<div class = "form-group">
- 							<label for = "gender">Gender</label>
-							<input class = "form-control" type = "text" th:field = "*{gender}" id = "gender" placeholder = "Add Gender">
-							<div th:if = "${#fields.hasErrors('gender')}" th:errors = "*{gender}"></div>
+ 							<label for = "genderCheck">Gender:</label>
+							
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="gender" id="gender" value="Male">
+							  <label class="form-check-label" for="gender">Male</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="gender" id="gender" value="Female">
+							  <label class="form-check-label" for="gender">Female</label>
+							</div>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('gender')}" th:errors = "*{gender}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "dateOfBirth">Date Of Birth</label>
-							<input class = "form-control" type = "text" th:field = "*{dateOfBirth}" id = "dateOfBirth" placeholder = "Add Date Of Birth">
-							<div th:if = "${#fields.hasErrors('dateOfBirth')}" th:errors = "*{dateOfBirth}"></div>
+							<input class = "form-control" type = "text" th:field = "*{dateOfBirth}" id = "dateOfBirth" placeholder = "yyyy/mm/dd" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('dateOfBirth')}" th:errors = "*{dateOfBirth}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "address">Address</label>
-							<input class = "form-control" type = "text" th:field = "*{address}" id = "address" placeholder = "Add Address">
-							<div th:if = "${#fields.hasErrors('address')}" th:errors = "*{address}"></div>
+							<input class = "form-control" type = "text" th:field = "*{address}" id = "address" placeholder = "Add Address" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('address')}" th:errors = "*{address}"></div>
  						</div>
  						
  						<div class = "form-group">
  							<label for = "nationality">Nationality</label>
-							<input class = "form-control" type = "text" th:field = "*{nationality}" id = "nationality" placeholder = "Add Nationality">
-							<div th:if = "${#fields.hasErrors('nationality')}" th:errors = "*{nationality}"></div>
+							<input class = "form-control" type = "text" th:field = "*{nationality}" id = "nationality" placeholder = "Add Nationality" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('nationality')}" th:errors = "*{nationality}"></div>
  						</div>
  						
  						<div class = "form-group">
- 							<label for = "licenceNumber">Licence Number</label>
-							<input class = "form-control" type = "text" th:field = "*{licenceNumber}" id = "licenceNumber" placeholder = "Add Licence Number">
-							<div th:if = "${#fields.hasErrors('licenceNumber')}" th:errors = "*{licenceNumber}"></div>
+ 							<label for = "licenceNumber">License Number</label>
+							<input class = "form-control" type = "text" th:field = "*{licenceNumber}" id = "licenceNumber" placeholder = "Add License Number" required>
+							<div class="alert alert-warning" th:if = "${#fields.hasErrors('licenceNumber')}" th:errors = "*{licenceNumber}"></div>
  						</div>
  						
- 						<input type = "submit" class = "btn btn-success mb-3" value = "Register">
- 					<h4>Already Register?</h4>
- 					<a th:href="@{/login}">Login Here</a>
+ 						<input type = "submit" class = "btn btn-warning mb-3" value = "Register">
+ 					<h4 class="class="text-dark"">Already Register?</h4>
+ 					<a th:href="@{/login}" class="btn btn-info">Login Here</a>
  						
 					</form>
 				</div>

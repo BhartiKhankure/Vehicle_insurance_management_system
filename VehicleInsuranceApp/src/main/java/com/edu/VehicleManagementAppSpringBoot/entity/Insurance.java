@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -19,10 +21,19 @@ public class Insurance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "insurance_id")
 	private long id;
+
+	@NotNull
+	@NotBlank(message="Insurance Provider can't be Empty")
 	@Column(name = "insurance_provider")
 	private String insuranceProvider;
+
+	@NotNull
+	@NotBlank(message="Insurance number can't be Empty")
 	@Column(name = "insurance_number", unique = true)
 	private String insuranceNumber;
+
+	@NotNull
+	@NotBlank(message="Insurance validity can't be Empty")
 	@Column(name = "insurance_validity")
 	private String insuranceValidity;
 	
@@ -31,12 +42,10 @@ public class Insurance {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Insurance(long id, String insuranceProvider, String insuranceNumber, String insuranceValidity) {
-		super();
-		this.id = id;
-		this.insuranceProvider = insuranceProvider;
-		this.insuranceNumber = insuranceNumber;
-		this.insuranceValidity = insuranceValidity;
+
+
+	public Insurance(String string, String string2, String string3) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public long getId() {
@@ -75,6 +84,19 @@ public class Insurance {
 	public String toString() {
 		return "Insurance [id=" + id + ", insuranceProvider=" + insuranceProvider + ", insuranceNumber="
 				+ insuranceNumber + ", insuranceValidity=" + insuranceValidity + "]";
+	}
+
+
+
+	public Insurance(long id,
+			@NotNull @NotBlank(message = "Insurance Provider can't be Empty") String insuranceProvider,
+			@NotNull @NotBlank(message = "Insurance number can't be Empty") String insuranceNumber,
+			@NotNull @NotBlank(message = "Insurance validity can't be Empty") String insuranceValidity) {
+		super();
+		this.id = id;
+		this.insuranceProvider = insuranceProvider;
+		this.insuranceNumber = insuranceNumber;
+		this.insuranceValidity = insuranceValidity;
 	}
 
 }

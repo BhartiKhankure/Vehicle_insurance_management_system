@@ -17,7 +17,7 @@ import com.edu.VehicleManagementAppSpringBoot.repository.UserRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 
-public class userRepositoryTests {
+public class userRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -70,3 +70,4 @@ public class userRepositoryTests {
 		
 	}
 }
+

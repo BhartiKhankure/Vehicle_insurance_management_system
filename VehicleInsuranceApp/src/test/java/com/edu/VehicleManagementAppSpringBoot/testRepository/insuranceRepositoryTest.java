@@ -1,5 +1,6 @@
 package com.edu.VehicleManagementAppSpringBoot.testRepository;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import com.edu.VehicleManagementAppSpringBoot.entity.Insurance;
+import com.edu.VehicleManagementAppSpringBoot.entity.User;
 import com.edu.VehicleManagementAppSpringBoot.repository.InsuranceRepository;
-
+import com.edu.VehicleManagementAppSpringBoot.repository.UserRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -27,14 +29,14 @@ public class insuranceRepositoryTest {
 	@Rollback(false)
 
     public void saveInsuranceTest() {
-    	Insurance insurance = insuranceRepository.save(new Insurance());
+    	Insurance insurance = insuranceRepository.save(new Insurance("Policy Bazar","12345","12/12/2024"));
     	
     		Assertions.assertThat(insurance.getId()).isGreaterThan(0);
     	
     }
 	
 	@Test
-	public void getInsuranceTest() {
+	public void getInsuarnceTest() {
 		Insurance insurance = insuranceRepository.findById(9L).get();
 		Assertions.assertThat(insurance.getId()).isEqualTo(9L);
 
@@ -58,7 +60,7 @@ public class insuranceRepositoryTest {
 	}
 	
 	@Test
-	public void deleteInsuranceTest() {
+	public void deleteUserTest() {
 		Insurance ins = insuranceRepository.findById(9L).get();
 		insuranceRepository.delete(ins);
 		Insurance insurance=null;

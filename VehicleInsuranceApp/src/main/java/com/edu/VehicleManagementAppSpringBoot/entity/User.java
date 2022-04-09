@@ -78,12 +78,12 @@ public class User {
 	private String address;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="nationality can't be Empty")
 	@Column(nullable=true)
 	private String nationality;
 	
 	@NotNull
-	@NotBlank
+	@NotBlank(message="License number can't be Empty")
 	@Column(name = "licence_number")
 	private String licenceNumber;
 
@@ -91,10 +91,6 @@ public class User {
 	@JsonBackReference
 	private List<Vehicle> vehicle;
 
-	public User(String string, String string2, String string3, String string4) {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 		public User() {
 		super();
@@ -128,6 +124,10 @@ public class User {
 			this.nationality = nationality;
 			this.licenceNumber = licenceNumber;
 			this.vehicle = vehicle;
+		}
+
+		public User(String string, String string2, String string3, String string4) {
+			// TODO Auto-generated constructor stub
 		}
 
 		public long getId() {
@@ -245,6 +245,14 @@ public class User {
 
 		public static void setActive(boolean active) {
 			User.active = "true" != null;
+		}
+
+		@Override
+		public String toString() {
+			return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+					+ ", contactNumber=" + contactNumber + ", password=" + password + ", gender=" + gender
+					+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", nationality=" + nationality
+					+ ", licenceNumber=" + licenceNumber + ", vehicle=" + vehicle + "]";
 		}
 
 		

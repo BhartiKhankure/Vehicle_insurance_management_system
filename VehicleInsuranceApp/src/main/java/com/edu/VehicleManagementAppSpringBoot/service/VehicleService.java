@@ -30,6 +30,10 @@ public interface VehicleService {
 
 	List<Vehicle> getVehicleByType(String type);
 
+	List<Vehicle> getVehiclesByUserId(User id);
+
+	List<Vehicle> getVehiclesByUserId(long id);
+
 
 
 }
